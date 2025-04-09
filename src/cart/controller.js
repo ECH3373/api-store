@@ -1,4 +1,7 @@
+import { PrismaClient } from '@prisma/client';
 import { services } from '../shared/services/index.js';
+
+const prisma = new PrismaClient();
 
 const include = [{ key: 'product_id', name: 'product' }];
 const expand = [{ key: 'employee_id', name: 'employee', endpoint: 'http://82.29.197.244:8080/employees' }];
@@ -15,7 +18,10 @@ const show = async (req, res) => {
 };
 
 const store = async (req, res) => {
-  const data = await services.crud.store({ model: 'cart', payload: req.body, keys: ['quantity', 'product_id', 'employee_id'] });
+  const product = await prisma.cart.findFirst({ where: { employee_id: req.query.employee_id, product_id: req.body.product_id } });
+  let data = {};
+  if (product) data = await services.crud.update({ model: 'cart', id: product.id, payload: { quantity: product.quantity + req.body.quantity }, keys: ['quantity'] });
+  if (!product) data = await services.crud.store({ model: 'cart', payload: req.body, keys: ['quantity', 'product_id', 'employee_id'] });
   return services.response.send({ res, data, message: 'cart created successfully' });
 };
 

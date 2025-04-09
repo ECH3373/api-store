@@ -21,7 +21,7 @@ const store = async (req, res) => {
   const products = await prisma.cart.findMany({ where: { employee_id: req.body.employee_id } });
 
   for (let index = 0; index < products.length; index++) {
-    await services.crud.store({ model: 'OrderProduct', payload: { order_id: data.id, product_id: products[index].id }, keys: ['order_id', 'product_id'] });
+    await services.crud.store({ model: 'OrderProduct', payload: { order_id: data.id, product_id: products[index].product_id }, keys: ['order_id', 'product_id'] });
   }
 
   return services.response.send({ res, data, message: 'order created successfully' });

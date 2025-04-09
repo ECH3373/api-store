@@ -22,6 +22,7 @@ const store = async (req, res) => {
 
   for (let index = 0; index < products.length; index++) {
     await services.crud.store({ model: 'OrderProduct', payload: { order_id: data.id, product_id: products[index].product_id }, keys: ['order_id', 'product_id'] });
+    await services.crud.destroy({ model: 'cart', id: products[index].id });
   }
 
   return services.response.send({ res, data, message: 'order created successfully' });

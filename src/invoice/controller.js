@@ -40,7 +40,7 @@ const show = async (req, res) => {
   const colName = colSku + 120;
   const colSet = colName + 140;
   const colUnty = colName + 180;
-  const colTotal = colName + 240;
+  const colTotal = colName + 250;
 
   doc
     .fontSize(12)

@@ -38,8 +38,9 @@ const show = async (req, res) => {
   const colNo = startX;
   const colSku = colNo + 40;
   const colName = colSku + 120;
-  const colSet = colName + 200;
-  const colUnty = colName + 240;
+  const colSet = colName + 150;
+  const colUnty = colName + 290;
+  const colTotal = colName + 330;
 
   doc
     .fontSize(12)
@@ -48,7 +49,8 @@ const show = async (req, res) => {
     .text('SKU', colSku, tableTop)
     .text('Producto', colName, tableTop)
     .text('Sets', colSet, tableTop)
-    .text('Unidades', colUnty, tableTop);
+    .text('Unidades', colUnty, tableTop)
+    .text('Total', colTotal, tableTop);
 
   doc
     .moveTo(startX, tableTop + 15)
@@ -67,7 +69,8 @@ const show = async (req, res) => {
       .text(item.product.sku, colSku, y)
       .text(item.product.name, colName, y, { width: 170 })
       .text(sets, colSet, y)
-      .text(unities, colUnty, y);
+      .text(unities, colUnty, y)
+      .text(item.quantity, colTotal, y);
     y += 20;
   });
 

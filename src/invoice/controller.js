@@ -39,8 +39,8 @@ const show = async (req, res) => {
   const colSku = colNo + 40;
   const colName = colSku + 120;
   const colSet = colName + 150;
-  const colUnty = colName + 290;
-  const colTotal = colName + 330;
+  const colUnty = colName + 190;
+  const colTotal = colName + 230;
 
   doc
     .fontSize(12)
